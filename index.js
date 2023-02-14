@@ -2,7 +2,6 @@
 const fs = require("fs");
 const { ApolloServer, gql } = require("apollo-server");
 const { buildSubgraphSchema } = require("@apollo/federation")
-const { ApolloServerPluginUsageReportingDisabled } = require("apollo-server-core");
 
 // Internal Dependencies
 const typeDefs = gql(fs.readFileSync("./products.graphql", 'utf8'));
@@ -33,9 +32,6 @@ const resolvers = {
 // Apollo Server Setup
 const server = new ApolloServer({
     schema: buildSubgraphSchema([{ typeDefs, resolvers }]),
-    plugins: [
-        ApolloServerPluginUsageReportingDisabled(),
-    ],
 });
   
 server.listen({ port }).then(({ url }) => {
